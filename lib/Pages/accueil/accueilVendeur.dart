@@ -7,6 +7,9 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:memory/Pages/ventes/new_product.dart';
 import 'package:memory/Pages/ventes/my_shop.dart';
 import 'package:memory/Pages/ventes/commandes.dart';
+import 'package:memory/Api/url.dart';
+import 'package:http/http.dart' as http;
+
 class AcceuilVendeur extends StatefulWidget {
   @override
   _AcceuilVendeurState createState() => _AcceuilVendeurState();
@@ -15,6 +18,29 @@ class AcceuilVendeur extends StatefulWidget {
 class _AcceuilVendeurState extends State<AcceuilVendeur> {
   String _somme;
   var somme = TextEditingController();
+
+  String num;
+  Future<List<UserConnected>>  _getUser() async{
+
+    // var getlocalStorage = asyncFunc();
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    num = localStorage.getString("numVendeur");
+    //Text(widget.choise.titre,style: textStyle,);
+    String _url = Url().url+"userConected/"+num;
+
+    var data = await http.get(_url);
+
+    var jsonData = json.decode(data.body);
+
+    List<UserConnected> user = [];
+
+
+    UserConnected me = UserConnected(jsonData["prenom"],jsonData["nom"]);
+    user.add(me);
+
+    print(user);
+    return user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +142,30 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("AppName",style: new TextStyle(fontWeight: FontWeight.bold),),
-              accountEmail: Text("appName@appName.com",style: new TextStyle(fontWeight: FontWeight.bold),),
+              accountName: Container(
+                child: FutureBuilder(
+                    future: _getUser(),
+                    builder:(BuildContext context,AsyncSnapshot snapshot){
+                      if(snapshot.data == null){
+                        print(snapshot.data);
+                        return Container(
+                          child: Center(
+                            child: Text("Chargement en cours..."),
+                          ),
+                        );
+                      }
+                      else{
+                        print(snapshot.data[0].prenom);
+
+                        return Container(
+                            margin: EdgeInsets.only(top: 5,bottom: 7),
+                            child: new  Text('${snapshot.data[0].prenom}  ${snapshot.data[0].nom}',
+                              style: new TextStyle(fontWeight: FontWeight.w300),
+                            ));
+                      }
+                    } ),
+              ),
+              accountEmail: Text(""+num,style: new TextStyle(fontWeight: FontWeight.bold),),
               currentAccountPicture: GestureDetector(
                 child: new CircleAvatar(
                   backgroundColor: Colors.grey,
@@ -318,4 +366,11 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
 
     );
   }
+}
+class UserConnected{
+  final String prenom;
+  final String nom;
+
+
+  UserConnected(this.prenom,this.nom,);
 }

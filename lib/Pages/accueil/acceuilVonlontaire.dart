@@ -17,12 +17,14 @@ import 'package:http/http.dart' as http;
  }
 
  class _AcceuilVolontaireState extends State<AcceuilVolontaire> {
-
+   String num;
    Future<List<UserConnected>>  _getUser() async{
 
-     var getlocalStorage = asyncFunc();
+    // var getlocalStorage = asyncFunc();
+     SharedPreferences localStorage = await SharedPreferences.getInstance();
+     num = localStorage.getString("numVolontaire");
      //Text(widget.choise.titre,style: textStyle,);
-     String _url = Url().url+"userConected/773283705";
+     String _url = Url().url+"userConected/"+num;
 
      var data = await http.get(_url);
 
@@ -30,11 +32,10 @@ import 'package:http/http.dart' as http;
 
      List<UserConnected> user = [];
 
-     for (var o in jsonData){
-       UserConnected me = UserConnected(o["prenom"],o["nom"],);
+
+       UserConnected me = UserConnected(jsonData["prenom"],jsonData["nom"],jsonData["numero"]);
        user.add(me);
 
-     }
     print(user);
      return user;
    }
@@ -67,14 +68,17 @@ import 'package:http/http.dart' as http;
                           );
                         }
                         else{
-                          print(snapshot.data.prenom);
+                          print(snapshot.data[0].prenom);
+
                           return Container(
                               margin: EdgeInsets.only(top: 5,bottom: 7),
-                              child: new  Text('${snapshot.data.prenom} '));
+                              child: new  Text('${snapshot.data[0].prenom}  ${snapshot.data[0].nom}',
+                                style: new TextStyle(fontWeight: FontWeight.w300),
+                              ));
                         }
                       } ),
                 ),
-               // accountEmail: Text("appName@appName.com",style: new TextStyle(fontWeight: FontWeight.bold),),
+                accountEmail: Text(""+num,style: new TextStyle(fontWeight: FontWeight.bold),),
                 currentAccountPicture: GestureDetector(
                   child: new CircleAvatar(
                     backgroundColor: Colors.grey,
@@ -317,6 +321,7 @@ import 'package:http/http.dart' as http;
 class UserConnected{
   final String prenom;
   final String nom;
+  final String numero;
 
-  UserConnected(this.prenom,this.nom);
+  UserConnected(this.prenom,this.nom,this.numero);
 }

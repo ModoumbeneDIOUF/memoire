@@ -22,6 +22,28 @@ class AcceuilDonneur extends StatefulWidget {
 class _AcceuilDonneurState extends State<AcceuilDonneur> {
   String _somme;
   var somme = TextEditingController();
+  String num;
+  Future<List<UserConnected>>  _getUser() async{
+
+    // var getlocalStorage = asyncFunc();
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    num = localStorage.getString("numDonneur");
+    //Text(widget.choise.titre,style: textStyle,);
+    String _url = Url().url+"userConected/"+num;
+
+    var data = await http.get(_url);
+
+    var jsonData = json.decode(data.body);
+
+    List<UserConnected> user = [];
+
+
+    UserConnected me = UserConnected(jsonData["prenom"],jsonData["nom"]);
+    user.add(me);
+
+    print(user);
+    return user;
+  }
 
   // neeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeewwwwwwwwwwwwwwwwwwwwwwwww
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -205,8 +227,30 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("AppName",style: new TextStyle(fontWeight: FontWeight.bold),),
-              accountEmail: Text("appName@appName.com",style: new TextStyle(fontWeight: FontWeight.bold),),
+              accountName: Container(
+                child: FutureBuilder(
+                    future: _getUser(),
+                    builder:(BuildContext context,AsyncSnapshot snapshot){
+                      if(snapshot.data == null){
+                        print(snapshot.data);
+                        return Container(
+                          child: Center(
+                            child: Text("Chargement en cours..."),
+                          ),
+                        );
+                      }
+                      else{
+                        print(snapshot.data[0].prenom);
+
+                        return Container(
+                            margin: EdgeInsets.only(top: 5,bottom: 7),
+                            child: new  Text('${snapshot.data[0].prenom}  ${snapshot.data[0].nom}',
+                              style: new TextStyle(fontWeight: FontWeight.w300),
+                            ));
+                      }
+                    } ),
+              ),
+              accountEmail: Text(""+num,style: new TextStyle(fontWeight: FontWeight.bold),),
               currentAccountPicture: GestureDetector(
                 child: new CircleAvatar(
                   backgroundColor: Colors.grey,
@@ -214,8 +258,7 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
                 ),
               ),
               decoration: new BoxDecoration(
-                  color: Colors.blueAccent,
-
+                  color: Colors.blueAccent
               ),
             ),
             InkWell(
@@ -385,4 +428,12 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
 
   }
 
+}
+
+class UserConnected{
+  final String prenom;
+  final String nom;
+
+
+  UserConnected(this.prenom,this.nom,);
 }

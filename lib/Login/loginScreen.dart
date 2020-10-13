@@ -66,7 +66,7 @@ class _LogInState extends State<LogIn> {
                               Center(
                                   child: Image(
                                     image: AssetImage(
-                                      'assets/welcom/logo.jpg',
+                                      'assets/welcom/logo2.jpg',
                                     ),
                                     height: 80.0,
                                     width: 350.0,

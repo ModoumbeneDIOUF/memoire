@@ -11,8 +11,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 
-
-
 class NouvelleZakkat extends StatefulWidget {
   @override
   _NouvelleZakkatState createState() => _NouvelleZakkatState();
@@ -46,6 +44,8 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
   final _formKey = GlobalKey<FormState>();
   var somme = TextEditingController();
   String _somme;
+  int _groupValue = -1;
+
   @override
   Widget build(BuildContext context) {
     // ======================= carousel
@@ -69,7 +69,15 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
         ),
       ),
     );
-
+    Widget _myRadioButton({String title, int value, Function onChanged, Color active}) {
+      return RadioListTile(
+        value: value,
+        groupValue: _groupValue,
+        onChanged: onChanged,
+        title: Text(title),
+        activeColor: active,
+      );
+    }
     //============================================= loading dialoge
     pr = new ProgressDialog(context, type: ProgressDialogType.Normal);
 
@@ -145,7 +153,7 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
                                        mainAxisSize: MainAxisSize.min,
                                        children: <Widget>[
                                          Padding(
-                                           padding: EdgeInsets.all(8.0),
+                                           padding: EdgeInsets.only(left:8.0,right: 8.0,top:20),
                                            child: TextFormField(
                                              controller: somme,
                                              keyboardType: TextInputType.number,
@@ -170,10 +178,33 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
                                                if (value.isEmpty) {
                                                  return 'Champ obligatoire';
                                                }
+                                               else if(value.length < 4){
+                                                 return "Le dont commence à partir de 1000fcfa";
+                                               }
                                                return null;
                                              },
                                            ),
 
+                                         ),
+                                         Padding(
+                                           padding: EdgeInsets.only(top: 28),
+                                           child: Column(
+                                             children: <Widget>[
+                                               _myRadioButton(
+                                                 title: "Orange money",
+                                                 value: 0,
+                                                 onChanged: (newValue) => setState(() => _groupValue = newValue),
+                                                 active: Colors.deepOrange
+                                               ),
+                                               _myRadioButton(
+                                                 title: "Free money",
+                                                 value: 1,
+                                                 onChanged: (newValue) => setState(() => _groupValue = newValue),
+                                                 active: Colors.blue
+
+                                               ),
+                                             ],
+                                           ),
                                          ),
                                          //===========================Button=============================
 
@@ -196,7 +227,22 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
                                                onPressed: () async{
                                                  if (_formKey.currentState.validate()) {
                                                   //2*1*1*77*som*2#
-                                                   launch("tel://"+Uri.encodeComponent("#144#2*1*1*778004160*"+_somme+"*2#"));
+                                                   if(_groupValue == -1){
+                                                     Fluttertoast.showToast(
+                                                       msg: "Merci de précser la banque à utilser !!!",
+                                                       toastLength: Toast.LENGTH_SHORT,
+                                                       gravity: ToastGravity.CENTER,
+                                                     );
+                                                   }
+                                                   else if(_groupValue == 0){
+                                                     launch("tel://"+Uri.encodeComponent("#144#2*1*1*778004160*"+_somme+"*2#"));
+
+                                                   }
+                                                   else{
+                                                     launch("tel://"+Uri.encodeComponent("#144#2*1*1*778004160*"+_somme+"*2#"));
+
+                                                   }
+                                                   //launch("tel://"+Uri.encodeComponent("#144#2*1*1*778004160*"+_somme+"*2#"));
                                                   // FlutterPhoneDirectCaller.callNumber("77");
                                                   // ajouterZakkat();
                                                  }

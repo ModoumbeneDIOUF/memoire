@@ -117,7 +117,7 @@ class _DemandeZakatState extends State<DemandeZakat> {
                                   });
                                 }),
                                 decoration: InputDecoration(
-                                  labelText: "Somme demandée",
+                                  labelText: "Somme à demander",
                                   labelStyle: TextStyle(
                                     color: Colors.black87,
                                   ),
@@ -130,6 +130,9 @@ class _DemandeZakatState extends State<DemandeZakat> {
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Champ obligatoire';
+                                  }
+                                  else if(value.length < 4){
+                                    return 'les demandes commencent à partr de 1000fcfa';
                                   }
                                   return null;
                                 },
@@ -164,6 +167,9 @@ class _DemandeZakatState extends State<DemandeZakat> {
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return 'Champ obligatoire';
+                                  }
+                                  else if(value.length != 13){
+                                    return 'Merci de donner un numero au bon format';
                                   }
                                   return null;
                                 },

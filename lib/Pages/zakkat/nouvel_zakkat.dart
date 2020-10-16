@@ -97,6 +97,7 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {

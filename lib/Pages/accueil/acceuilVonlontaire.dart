@@ -78,7 +78,29 @@ import 'package:http/http.dart' as http;
                         }
                       } ),
                 ),
-                accountEmail: Text(""+num,style: new TextStyle(fontWeight: FontWeight.bold),),
+                accountEmail:  Container(
+                          child: FutureBuilder(
+                          future: _getUser(),
+                          builder:(BuildContext context,AsyncSnapshot snapshot){
+                          if(snapshot.data == null){
+                              print(snapshot.data);
+                              return Container(
+                              child: Center(
+                              child: Text("Chargement en cours..."),
+                              ),
+                              );
+                          }
+                          else{
+
+                          return Container(
+
+                          child: new  Text('${snapshot.data[0].numero}',
+                          style: new TextStyle(fontWeight: FontWeight.bold),
+                          ));
+                          }
+                          } ),
+                ),
+
                 currentAccountPicture: GestureDetector(
                   child: new CircleAvatar(
                     backgroundColor: Colors.grey,

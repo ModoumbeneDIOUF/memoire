@@ -35,7 +35,7 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
     List<UserConnected> user = [];
 
 
-    UserConnected me = UserConnected(jsonData["prenom"],jsonData["nom"]);
+    UserConnected me = UserConnected(jsonData["prenom"],jsonData["nom"],jsonData["numero"]);
     user.add(me);
 
     print(user);
@@ -165,7 +165,29 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
                       }
                     } ),
               ),
-              accountEmail: Text(""+num,style: new TextStyle(fontWeight: FontWeight.bold),),
+              accountEmail:  Container(
+                child: FutureBuilder(
+                    future: _getUser(),
+                    builder:(BuildContext context,AsyncSnapshot snapshot){
+                      if(snapshot.data == null){
+                        print(snapshot.data);
+                        return Container(
+                          child: Center(
+                            child: Text("Chargement en cours..."),
+                          ),
+                        );
+                      }
+                      else{
+
+                        return Container(
+
+                            child: new  Text('${snapshot.data[0].numero}',
+                              style: new TextStyle(fontWeight: FontWeight.bold),
+                            ));
+                      }
+                    } ),
+              ),
+
               currentAccountPicture: GestureDetector(
                 child: new CircleAvatar(
                   backgroundColor: Colors.grey,
@@ -370,7 +392,8 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
 class UserConnected{
   final String prenom;
   final String nom;
+  final String numero;
 
 
-  UserConnected(this.prenom,this.nom,);
+  UserConnected(this.prenom,this.nom,this.numero);
 }

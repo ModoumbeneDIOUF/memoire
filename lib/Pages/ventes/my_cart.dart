@@ -154,6 +154,8 @@ class _MyCartState extends State<MyCart> {
 
      DateTime _now = new DateTime.now();
      String date = new DateFormat("EEEE d MMMM  yyyy","fr").format(_now);
+     String periode = new DateFormat("MMMM  yyyy","fr").format(_now);
+
 
      String _url = Url().url+"addToPanier";
 

@@ -75,10 +75,45 @@ class MyInboxState extends State{
                     onTap: (){
                       if(messagesOrange[index].body.toString().substring(0,23) =="Vous avez recu un depot"){
                         print("bien");
-                        addToCompte(messagesOrange[index].body.toString().substring(27,31),"773283706");
+                        print(messagesOrange[index].body.toString().substring(31,32));
+                        if(messagesOrange[index].body.toString().substring(31,32) =="."){
+                          print("transfert de 1000");
+                           addToCompte(messagesOrange[index].body.toString().substring(27,31),"773283706");
+
+                        }
+                         else if(messagesOrange[index].body.toString().substring(32,33) =="."){
+                          print("transfert de 10000");
+                           addToCompte(messagesOrange[index].body.toString().substring(27,32),"773283706");
+
+                        }
+                        else {
+                          print("transfert de 100000");
+                           addToCompte(messagesOrange[index].body.toString().substring(27,33),"773283706");
+
+                        }
+                       // addToCompte(messagesOrange[index].body.toString().substring(27,31),"773283706");
                         //Fluttertoast.showToast(
                         //  msg: messagesOrange[index].body.toString().substring(45,57)
                         //);
+                      }
+                      else if(messagesOrange[index].body.toString().substring(0,23) =="Vous avez recu un trans"){
+                         print("transfert");
+                         // print(messagesOrange[index].body.toString().substring(31,36));
+                         if(messagesOrange[index].body.toString().substring(35,36) == "."){
+                           print("transfert de 1000");
+                           addToCompte(messagesOrange[index].body.toString().substring(31,35),"773283706");
+
+                         }
+                         else if(messagesOrange[index].body.toString().substring(36,37) == "."){
+                            print("transfert de 10000");
+                            addToCompte(messagesOrange[index].body.toString().substring(31,36),"773283706");
+                            print(messagesOrange[index].body.toString().substring(31,36));
+                         }
+                         else{
+                           print("transfert de 100000");
+                           addToCompte(messagesOrange[index].body.toString().substring(31,37),"773283706");
+
+                         }
                       }
                       else{
 

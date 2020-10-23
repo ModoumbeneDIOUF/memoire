@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:memory/Api/url.dart';
 import 'package:memory/Login/loginScreen.dart';
 import 'package:memory/Pages/zakkat/demande_zakat.dart';
@@ -113,11 +115,44 @@ import 'package:http/http.dart' as http;
               ),
               ListTile(
                 leading: Icon(Icons.favorite),
-                title: Text("Nouvelle offre"),
+                title: Text("Offres"),
+                onTap: (){
+                         Navigator.push(
+                           context,
+                           new MaterialPageRoute(
+                           builder: (context) => Offres()));
+                      },
+              ),
+              ListTile(
+                leading: Icon(Icons.shopping_cart),
+                title: Text("Ventes"),
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => Produits()));
+                },
               ),
               ListTile(
                 leading: Icon(Icons.favorite_border),
-                title: Text("Donner de la zakkat"),
+                title: Text("Demander zakat"),
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => DemandeZakat()));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text("Mon espace"),
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => EspaceVolontaire()));
+                },
+
               ),
               Divider(),
               ListTile(
@@ -135,7 +170,7 @@ import 'package:http/http.dart' as http;
         ),
         ///////// fin drawer //////////////
         //////////// le contenu ///////////////
-       body: SafeArea(
+       body: WillPopScope(
 
          child: Container(
            padding: EdgeInsets.all(20.0),
@@ -326,12 +361,40 @@ import 'package:http/http.dart' as http;
 
              ],
            ),
-         )
+         ),
+           onWillPop: onWillPop
        ),
 
 
 
      );
+   }
+   Future<bool> onWillPop () async{
+     showDialog(
+         context: context,
+         builder: (_)=> AlertDialog(
+           content: Text("Voulez-vous deconnecter ?"),
+           actions: <Widget>[
+             FlatButton(
+               onPressed: (){
+                 Navigator.pop(context);
+               },
+               child: Text("Non"),
+             ),
+             FlatButton(
+               onPressed: (){
+                 Navigator.push(
+                     context,
+                     new MaterialPageRoute(
+                         builder: (context) => LogIn()));
+               }
+               ,
+               child: Text("Oui"),
+             )
+           ],
+         )
+     );
+
    }
  }
  asyncFunc() async {

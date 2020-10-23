@@ -50,6 +50,7 @@ dependencies:
   sms: ^0.2.4
   flutter_local_notifications: ^1.5.0+1
   locally: ^0.2.6+9
+  carousel_slider: ^2.3.1
 
 
 

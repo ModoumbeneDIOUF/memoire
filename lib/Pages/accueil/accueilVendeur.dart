@@ -34,7 +34,6 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
 
     List<UserConnected> user = [];
 
-
     UserConnected me = UserConnected(jsonData["prenom"],jsonData["nom"],jsonData["numero"]);
     user.add(me);
 
@@ -200,17 +199,40 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
             ),
             InkWell(
               child: ListTile(
-                leading: Icon(Icons.favorite,color: Colors.blueAccent,),
+                leading: Icon(Icons.shopping_cart,color: Colors.blueAccent,),
                 title: Text("Vendre un produit"),
-                onTap: (){},
+                onTap: (){
+                  Navigator.push(
+                      context,
+
+                      new MaterialPageRoute(
+                          builder: (context) => NewProduct()));
+                },
               ),
             ),
 
             InkWell(
               child: ListTile(
-                leading: Icon(Icons.favorite_border,color: Colors.blueAccent),
+                leading: Icon(Icons.shop,color: Colors.blueAccent),
                 title: Text("Ma boutique"),
-                onTap: (){},
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => Myshop()));
+                },
+              ),
+            ),
+            InkWell(
+              child: ListTile(
+                leading: Icon(Icons.people,color: Colors.blueAccent),
+                title: Text("Commandes clients"),
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => Commandes()));
+                },
               ),
             ),
             Divider(),
@@ -229,7 +251,7 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
           ],
         ),
       ),
-      body: SafeArea(
+      body: WillPopScope(
 
           child: Container(
             padding: EdgeInsets.all(20.0),
@@ -383,10 +405,38 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
                 )
               ],
             ),
-          )
+          ),
+          onWillPop: onWillPop
       ),
 
     );
+  }
+  Future<bool> onWillPop () async{
+    showDialog(
+        context: context,
+        builder: (_)=> AlertDialog(
+          content: Text("Voulez-vous deconnecter ?"),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              child: Text("Non"),
+            ),
+            FlatButton(
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => LogIn()));
+              }
+              ,
+              child: Text("Oui"),
+            )
+          ],
+        )
+    );
+
   }
 }
 class UserConnected{

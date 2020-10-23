@@ -153,7 +153,7 @@ class _MyCartState extends State<MyCart> {
      String num = localStorage.getString("numVolontaire");
 
      DateTime _now = new DateTime.now();
-     String date = new DateFormat("EEEE d MMMM  yyyy","fr").format(_now);
+     String date = new DateFormat("d MMMM  yyyy","fr").format(_now);
      String periode = new DateFormat("MMMM  yyyy","fr").format(_now);
 
 
@@ -162,7 +162,8 @@ class _MyCartState extends State<MyCart> {
      http.post(_url,body: {
        "venteRandomKey":venteRandomKey,
        "numeroVolontaire":num,
-       "dateCommande":date
+       "dateCommande":date,
+       "periode":periode
      }).then((res) {
        var body = json.decode(res.body);
        if(body['message'] == "ok"){

@@ -86,10 +86,10 @@ class _CommandesState extends State<Commandes> {
                               title: Text(snapshot.data[index].descriptionPanier),
                               subtitle: Row(
                                 children: <Widget>[
-                                    new Text("date: "+snapshot.data[index].dateCommande),
+                                    new Text(""+snapshot.data[index].dateCommande),
 
                                     Container(
-                                      margin: EdgeInsets.only(left: 20.0),
+                                      margin: EdgeInsets.only(left: 50.0),
                                       child: new Row(
                                         mainAxisAlignment:MainAxisAlignment.spaceAround ,
                                         children: <Widget>[

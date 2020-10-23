@@ -8,6 +8,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 
 
@@ -54,19 +55,31 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
       height: 200.0,
       child: Container(
 
-        child: new Carousel(
-          boxFit: BoxFit.cover,
-          images: [
-            AssetImage('assets/carouselDonneur/2.jpg'),
-            AssetImage('assets/carouselDonneur/3.png'),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: new Carousel(
+                boxFit: BoxFit.cover,
+                images: [
+                  //AssetImage('assets/welcom/slide11.png'),
+                 // AssetImage('assets/welcom/slide2.png'),
+                  AssetImage('assets/welcom/slide22.png'),
+                 // AssetImage('assets/carouselDonneur/3.png'),
+                ],
+
+                autoplay: true,
+                //animationCurve: Curves.fastOutSlowIn,
+                //animationDuration: Duration(milliseconds: 1000),
+                dotSize: 4.0,
+                indicatorBgPadding: 2.0,
+                dotColor: Colors.blueAccent,
+              ),
+            ),
+            SizedBox(height: 5,),
+            Text("Donnez la somme à envoyer puis émetre l'appel",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            SizedBox(height: 5,),
           ],
-          autoplay: false,
-          //animationCurve: Curves.fastOutSlowIn,
-          //animationDuration: Duration(milliseconds: 1000),
-          dotSize: 4.0,
-          indicatorBgPadding: 2.0,
-          dotColor: Colors.blueAccent,
-        ),
+        )
       ),
     );
     Widget _myRadioButton({String title, int value, Function onChanged, Color active}) {
@@ -74,8 +87,11 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
         value: value,
         groupValue: _groupValue,
         onChanged: onChanged,
+
+
         title: Text(title),
         activeColor: active,
+
       );
     }
     //============================================= loading dialoge
@@ -104,7 +120,7 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
             Navigator.pop(context);
           },
         ),
-        title: Text('Donner de la zakkat'),
+        title: Text('Donner de la zakat'),
       ),
       backgroundColor: Colors.grey,
       body: ListView(

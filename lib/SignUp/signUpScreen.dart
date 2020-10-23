@@ -13,6 +13,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final _formKey = GlobalKey<FormState>();
+
   TextEditingController prenomController = TextEditingController();
   TextEditingController nomController = TextEditingController();
   TextEditingController adresseController = TextEditingController();
@@ -24,6 +26,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    final _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -51,7 +54,7 @@ class _SignUpState extends State<SignUp> {
                 children: <Widget>[
                   SizedBox(height: 20,),
 
-                  SizedBox(height: 40,),
+                  SizedBox(height: 20,),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
@@ -59,254 +62,226 @@ class _SignUpState extends State<SignUp> {
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(60),topRight: Radius.circular(60)),
 
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(height: 10,),
+                        child: Form(
+                          key: _formKey,
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(height: 10,),
 
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [BoxShadow(
-                                        color: Colors.blue,
-                                        blurRadius: 20,
-                                        offset: Offset(0, 10)
-                                    )]
-                                ),
-                                child: Column(
-                                  children: <Widget>[
-                                    // prenom
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border(bottom: BorderSide(color: Colors.grey[200])),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [BoxShadow(
+                                          color: Colors.blue,
+                                          blurRadius: 20,
+                                          offset: Offset(0, 10)
+                                      )]
+                                  ),
+                                  child: Column(
+                                    children: <Widget>[
+                                      //Prenom
 
-
-                                      ),
-                                      child:   TextField(
-                                        style: TextStyle(color: Color(0xFF000000)),
-                                        controller: prenomController,
-                                        cursorColor: Color(0xFF9b9b9b),
-                                        keyboardType: TextInputType.text,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          prefixIcon: Icon(
-                                            Icons.account_circle,
-                                            color: Colors.grey,
+                                         TextFormField(
+                                          controller: prenomController,
+                                          keyboardType: TextInputType.text,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              icon: Icon(Icons.account_circle,),
+                                              labelText: 'Prenom',
+                                              hintText: 'Prenom'
                                           ),
-                                          hintText: "Prenom",
-                                          hintStyle: TextStyle(
-                                              color: Color(0xFF9b9b9b),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.normal),
+                                          validator: (value){
+                                            if (value.isEmpty) {
+                                              return 'Champ obligatoire';
+                                            }
+                                            return null;
+                                          },
                                         ),
-                                      ),
-                                    ),
-                                    // nom
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border(bottom: BorderSide(color: Colors.grey[200])),
 
-                                      ),
-                                      child:   TextField(
-                                        style: TextStyle(color: Color(0xFF000000)),
-                                        controller: nomController,
-                                        cursorColor: Color(0xFF9b9b9b),
-                                        keyboardType: TextInputType.text,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          prefixIcon: Icon(
-                                            Icons.account_circle,
-                                            color: Colors.grey,
+                                      //Nom
+                                      TextFormField(
+                                          controller: nomController,
+                                          keyboardType: TextInputType.text,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              icon: Icon(Icons.account_circle,),
+                                              labelText: 'Nom',
+                                              hintText: 'Nom'
                                           ),
-                                          hintText: "Nom",
-                                          hintStyle: TextStyle(
-                                              color: Color(0xFF9b9b9b),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.normal),
+                                          validator: (value){
+                                            if (value.isEmpty) {
+                                              return 'Champ obligatoire';
+                                            }
+                                            return null;
+                                          },
                                         ),
-                                      ),
-                                    ),
-                                    // adresse
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border(bottom: BorderSide(color: Colors.grey[200])),
 
-                                      ),
-                                      child:   TextField(
-                                        style: TextStyle(color: Color(0xFF000000)),
-                                        controller: adresseController,
-                                        cursorColor: Color(0xFF9b9b9b),
-                                        keyboardType: TextInputType.text,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          prefixIcon: Icon(
-                                            Icons.home,
-                                            color: Colors.grey,
+                                      //Adresse
+                                      TextFormField(
+                                          controller: adresseController,
+                                          keyboardType: TextInputType.text,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              icon: Icon(Icons.home,),
+                                              labelText: 'Adresse',
+                                              hintText: 'Adresse'
                                           ),
-                                          hintText: "Adresse",
-                                          hintStyle: TextStyle(
-                                              color: Color(0xFF9b9b9b),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.normal),
+                                          validator: (value){
+                                            if (value.isEmpty) {
+                                              return 'Champ obligatoire';
+                                            }
+                                            return null;
+                                          },
                                         ),
-                                      ),
-                                    ),
-                                    // numero
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border(bottom: BorderSide(color: Colors.grey[200])),
 
-                                      ),
-                                      child:   TextField(
-                                        style: TextStyle(color: Color(0xFF000000)),
-                                        controller: numeroController,
-                                        cursorColor: Color(0xFF9b9b9b),
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          prefixIcon: Icon(
-                                            Icons.call,
-                                            color: Colors.grey,
+                                      //Numero
+                                      TextFormField(
+                                          controller: numeroController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              icon: Icon(Icons.call,),
+                                              labelText: 'Numero de téléphone',
+                                              hintText: '771234567'
                                           ),
-                                          hintText: "Numero de telephone",
-                                          hintStyle: TextStyle(
-                                              color: Color(0xFF9b9b9b),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.normal),
+                                          validator: (value){
+                                            if (value.isEmpty) {
+                                              return 'Champ obligatoire';
+                                            }
+                                            else if((value.toString().substring(0,2) != "77") && (value.toString().substring(0,2) != "70") && (value.toString().substring(0,2) != "78")&& (value.toString().substring(0,2) != "76")&& (value.toString().substring(0,2) != "33")){
+                                              return 'Fromat du numéro incorecte ';
+                                            }
+                                            else if ((value.length < 9) || (value.length > 9)){
+                                              return 'Le numéro doit avoir 9 chiffres ';
+                                            }
+                                            return null;
+                                          },
                                         ),
-                                      ),
-                                    ),
 
-                                    // Passeword
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border(bottom: BorderSide(color: Colors.grey[200])),
-
-                                      ),
-                                      child:   TextField(
-                                        style: TextStyle(color: Color(0xFF000000)),
-                                        controller: passwordController,
-                                        cursorColor: Color(0xFF9b9b9b),
-                                        keyboardType: TextInputType.text,
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          prefixIcon: Icon(
-                                            Icons.lock,
-                                            color: Colors.grey,
+                                      //Mot de passe
+                                       TextFormField(
+                                          controller: passwordController,
+                                          keyboardType: TextInputType.text,
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              icon: Icon(Icons.vpn_key,),
+                                              labelText: 'Mot de passe',
+                                              hintText: '******'
                                           ),
-                                          hintText: "Mot de passe",
-                                          hintStyle: TextStyle(
-                                              color: Color(0xFF9b9b9b),
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.normal),
+                                          validator: (value){
+                                            if (value.isEmpty) {
+                                              return 'Champ obligatoire';
+                                            }
+                                            return null;
+                                          },
                                         ),
-                                      ),
-                                    ),
-                                    //Profil
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        border: Border(bottom: BorderSide(color: Colors.grey[200])),
 
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: DropdownButtonHideUnderline(
-                                              child: ButtonTheme(
-                                                alignedDropdown: true,
-                                                child: DropdownButton<String>(
-                                                  value: dropdownValue,
-                                                  iconSize: 20,
-                                                  icon: null,
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
+                                      //Profil
+                                      Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          border: Border(bottom: BorderSide(color: Colors.grey[200])),
+
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: DropdownButtonHideUnderline(
+                                                child: ButtonTheme(
+                                                  alignedDropdown: true,
+                                                  child: DropdownButton<String>(
+                                                    value: dropdownValue,
+                                                    iconSize: 20,
+                                                    icon: null,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                    ),
+                                                    hint: Text('Choisir un profil'),
+                                                    onChanged: (String newValue){
+                                                      setState(() {
+                                                        dropdownValue = newValue;
+                                                        print(dropdownValue);
+                                                      });
+                                                    },
+                                                    items: <String>['Volontaire', 'Donneur', 'Vendeur', 'Délégué de quartier','Chef de village']
+                                                        .map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      );
+                                                    }).toList(),
+
                                                   ),
-                                                  hint: Text('Choisir un profil'),
-                                                  onChanged: (String newValue){
-                                                    setState(() {
-                                                      dropdownValue = newValue;
-                                                      print(dropdownValue);
-                                                    });
-                                                  },
-                                                  items: <String>['Volontaire', 'Donneur', 'Vendeur', 'Délégué de quartier','Chef de village']
-                                                      .map<DropdownMenuItem<String>>((String value) {
-                                                    return DropdownMenuItem<String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  // Button
-                                    Container(
-                                      height: 70,
-                                      width: 230,
-                                      margin: EdgeInsets.only(top: 1),
-                                      child:  Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: FlatButton(
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 8, bottom: 8, left: 10, right: 10),
-                                              child: Text(
-                                                _isLoading ? 'Validation en cours...' : 'Valider',
-                                                textDirection: TextDirection.ltr,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  decoration: TextDecoration.none,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                              ),
-                                            ),
-                                            color: Colors.blue,
-                                            disabledColor: Colors.grey,
-                                            shape: new RoundedRectangleBorder(
-                                                borderRadius:
-                                                new BorderRadius.circular(20.0)),
-                                            onPressed: _isLoading ? null :  _handleLogin
+                                            )
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(height: 20,),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      child: InkWell(
-                                        onTap: (){
-                                          Navigator.push(
-                                              context,
-                                              new MaterialPageRoute(
-                                                  builder: (context) => LogIn()));
-                                          print("pa encor");
-                                        },
-                                        child:Container(
-                                            margin: EdgeInsets.only(bottom:20),
-                                            child: Text("Déja membre ?",style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),)),
-
+                                    // Button
+                                      Container(
+                                        height: 60,
+                                        width: 230,
+                                        margin: EdgeInsets.only(top: 1),
+                                        child:  Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: FlatButton(
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 8, bottom: 8, left: 10, right: 10),
+                                                child: Text(
+                                                  _isLoading ? 'Validation en cours...' : 'Valider',
+                                                  textDirection: TextDirection.ltr,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15.0,
+                                                    decoration: TextDecoration.none,
+                                                    fontWeight: FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ),
+                                              color: Colors.blue,
+                                              disabledColor: Colors.grey,
+                                              shape: new RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  new BorderRadius.circular(20.0)),
+                                              onPressed:(){
+                                                if (_formKey.currentState.validate()){
+                                                  _isLoading ? null :  _handleLogin();
+                                                }
+                                              }
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 40,),
-                                  ],
-                                ),
-                              )
-                            ],
+                                      SizedBox(height: 10,),
+                                      Container(
+                                        margin: EdgeInsets.only(top: 5),
+                                        child: InkWell(
+                                          onTap: (){
+                                            Navigator.push(
+                                                context,
+                                                new MaterialPageRoute(
+                                                    builder: (context) => LogIn()));
+                                            print("pa encor");
+                                          },
+                                          child:Container(
+                                              margin: EdgeInsets.only(bottom:10),
+                                              child: Text("Déja membre ?",style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),)),
+
+                                        ),
+                                      ),
+                                      SizedBox(height: 70,),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

@@ -288,15 +288,21 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
               child: ListTile(
                 leading: Icon(Icons.favorite,color: Colors.blueAccent,),
                 title: Text("Nouvelle offre"),
-                onTap: (){},
+                onTap: (){
+                  Navigator.push(context, new MaterialPageRoute(
+                      builder:(context)=>NewOffre()));
+                },
               ),
             ),
             
             InkWell(
               child: ListTile(
-                leading: Icon(Icons.favorite_border,color: Colors.blueAccent),
+                leading: Icon(Icons.attach_money,color: Colors.blueAccent),
                 title: Text("Donner de la zakkat"),
-                onTap: (){},
+                onTap: (){
+                  Navigator.push(context, new MaterialPageRoute(
+                      builder:(context)=>NouvelleZakkat()));
+                },
               ),
             ),
            Divider(),
@@ -315,7 +321,7 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
           ],
         ),
       ),
-      body:  SafeArea(
+      body:  WillPopScope(
 
           child: Container(
             padding: EdgeInsets.all(20.0),
@@ -433,7 +439,8 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
 
               ],
             ),
-          )
+          ),
+        onWillPop: onWillPop,
       ),
       
     );
@@ -451,6 +458,33 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
 
   }
 
+  Future<bool> onWillPop () async{
+    showDialog(
+        context: context,
+        builder: (_)=> AlertDialog(
+          content: Text("Voulez-vous deconnecter ?"),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              child: Text("Non"),
+            ),
+            FlatButton(
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => LogIn()));
+              }
+              ,
+              child: Text("Oui"),
+            )
+          ],
+        )
+    );
+
+  }
 }
 
 class UserConnected{

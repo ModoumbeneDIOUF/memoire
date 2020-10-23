@@ -168,8 +168,12 @@ class _DemandeZakatState extends State<DemandeZakat> {
                                   if (value.isEmpty) {
                                     return 'Champ obligatoire';
                                   }
+                                  else if(value.substring(0,1) != "1" && value.substring(0,1) != "2"){
+                                    print(value.substring(0,1));
+                                    return 'Le numero doit commencer par 1 ou 2';
+                                  }
                                   else if(value.length != 13){
-                                    return 'Merci de donner un numero au bon format';
+                                    return 'Merci de donner un numero au bon format 13 chiffres';
                                   }
                                   return null;
                                 },

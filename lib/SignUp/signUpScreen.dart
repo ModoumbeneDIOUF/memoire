@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                                           controller: prenomController,
                                           keyboardType: TextInputType.text,
                                           decoration: InputDecoration(
-                                              border: InputBorder.none,
+
                                               icon: Icon(Icons.account_circle,),
                                               labelText: 'Prenom',
                                               hintText: 'Prenom'
@@ -106,7 +106,7 @@ class _SignUpState extends State<SignUp> {
                                           controller: nomController,
                                           keyboardType: TextInputType.text,
                                           decoration: InputDecoration(
-                                              border: InputBorder.none,
+
                                               icon: Icon(Icons.account_circle,),
                                               labelText: 'Nom',
                                               hintText: 'Nom'
@@ -124,7 +124,7 @@ class _SignUpState extends State<SignUp> {
                                           controller: adresseController,
                                           keyboardType: TextInputType.text,
                                           decoration: InputDecoration(
-                                              border: InputBorder.none,
+
                                               icon: Icon(Icons.home,),
                                               labelText: 'Adresse',
                                               hintText: 'Adresse'
@@ -142,7 +142,7 @@ class _SignUpState extends State<SignUp> {
                                           controller: numeroController,
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
-                                              border: InputBorder.none,
+
                                               icon: Icon(Icons.call,),
                                               labelText: 'Numero de téléphone',
                                               hintText: '771234567'
@@ -167,7 +167,7 @@ class _SignUpState extends State<SignUp> {
                                           keyboardType: TextInputType.text,
                                           obscureText: true,
                                           decoration: InputDecoration(
-                                              border: InputBorder.none,
+
                                               icon: Icon(Icons.vpn_key,),
                                               labelText: 'Mot de passe',
                                               hintText: '******'

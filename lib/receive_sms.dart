@@ -78,11 +78,13 @@ class MyInboxState extends State{
                         print(messagesOrange[index].body.toString().substring(31,32));
                         if(messagesOrange[index].body.toString().substring(31,32) =="."){
                           print("transfert de 1000");
+                          print(" messagesOrange[index].body.toString().substring(45,57)");
                            addToCompte(messagesOrange[index].body.toString().substring(27,31),"773283706");
 
                         }
                          else if(messagesOrange[index].body.toString().substring(32,33) =="."){
                           print("transfert de 10000");
+                          print(" messagesOrange[index].body.toString().substring(45,57)");
                            addToCompte(messagesOrange[index].body.toString().substring(27,32),"773283706");
 
                         }
@@ -91,7 +93,7 @@ class MyInboxState extends State{
                            addToCompte(messagesOrange[index].body.toString().substring(27,33),"773283706");
 
                         }
-                       // addToCompte(messagesOrange[index].body.toString().substring(27,31),"773283706");
+                       //addToCompte(messagesOrange[index].body.toString().substring(27,31),"773283706");
                         //Fluttertoast.showToast(
                         //  msg: messagesOrange[index].body.toString().substring(45,57)
                         //);
@@ -101,13 +103,15 @@ class MyInboxState extends State{
                          // print(messagesOrange[index].body.toString().substring(31,36));
                          if(messagesOrange[index].body.toString().substring(35,36) == "."){
                            print("transfert de 1000");
-                           addToCompte(messagesOrange[index].body.toString().substring(31,35),"773283706");
+                           print(messagesOrange[index].body.toString().substring(46,55));
+                           addToCompte(messagesOrange[index].body.toString().substring(31,35),messagesOrange[index].body.toString().substring(46,55));
 
                          }
                          else if(messagesOrange[index].body.toString().substring(36,37) == "."){
                             print("transfert de 10000");
-                            addToCompte(messagesOrange[index].body.toString().substring(31,36),"773283706");
-                            print(messagesOrange[index].body.toString().substring(31,36));
+                            print(messagesOrange[index].body.toString().substring(47,56));
+                            addToCompte(messagesOrange[index].body.toString().substring(31,36),messagesOrange[index].body.toString().substring(47,56));
+                            //print(messagesOrange[index].body.toString().substring(31,36));
                          }
                          else{
                            print("transfert de 100000");
@@ -122,7 +126,7 @@ class MyInboxState extends State{
                         );
                       }
                       //numero source
-                      print(messagesOrange[index].body.toString().substring(42,51));
+                     // print(messagesOrange[index].body.toString().substring(42,51));
 
                     },
                   ),
@@ -183,8 +187,8 @@ class MyInboxState extends State{
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text("AppName",style: new TextStyle(fontWeight: FontWeight.bold),),
-                accountEmail: Text("appName@appName.com",style: new TextStyle(fontWeight: FontWeight.bold),),
+                accountName: Text("Administrateur",style: new TextStyle(fontWeight: FontWeight.bold),),
+                accountEmail: Text("sunuDon@sunuDon.com",style: new TextStyle(fontWeight: FontWeight.bold),),
                 currentAccountPicture: GestureDetector(
                   child: new CircleAvatar(
                     backgroundColor: Colors.grey,
@@ -211,36 +215,67 @@ class MyInboxState extends State{
             ],
           ),
         ),
-        body: Column(
-          children: <Widget>[
-            SizedBox(height: 10,),
-            Text("OrangeMoney"),
-            Expanded(
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 5.0),
-                    child: orangeMoney,
-                  )
-                ],
-              )
-            ),
-            SizedBox(height: 10,),
-            Text("FreeMoney"),
-            Expanded(
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 10.0),
-                    child: freeMoney,
-                  )
-                ],
-              )
-            ),
+        body: RefreshIndicator(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 10,),
+              Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange,
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5),bottomRight: Radius.circular(5),bottomLeft: Radius.circular(5))
+                ),
+                child: Text("OrangeMoney",style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),),
+              ),
+              Expanded(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 5.0),
+                      child: orangeMoney,
+                    )
+                  ],
+                )
+              ),
+              SizedBox(height: 10,),
+              Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5),bottomRight: Radius.circular(5),bottomLeft: Radius.circular(5))
+                ),
+                child: Text("FreeMoney",style: TextStyle(color: Colors.white,fontSize: 15,fontWeight: FontWeight.bold),),
+              ),
+              Expanded(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(top: 10.0),
+                      child: freeMoney,
+                    )
+                  ],
+                )
+              ),
 
-          ],
-        )
+            ],
+          ),
+       onRefresh: _hundleRefresh, )
     );
+  }
+
+  Future<Null> _hundleRefresh() async{
+
+    print("bien");
+
+    Completer<Null> completer = new Completer<Null>();
+    new Future.delayed(new Duration(seconds: 3)).then((_){
+      completer.complete();
+      setState(() {
+        _getZakaatSMSState();
+      });
+
+    } );
+    return completer.future;
   }
 
   fetchSMSOrangeMoney()

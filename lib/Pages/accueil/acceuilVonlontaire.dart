@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:memory/Api/url.dart';
 import 'package:memory/Login/loginScreen.dart';
+import 'package:memory/Pages/offres/mainOffres.dart';
 import 'package:memory/Pages/zakkat/demande_zakat.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -120,7 +121,7 @@ import 'package:http/http.dart' as http;
                          Navigator.push(
                            context,
                            new MaterialPageRoute(
-                           builder: (context) => Offres()));
+                           builder: (context) => MainOffres()));
                       },
               ),
               ListTile(
@@ -229,7 +230,7 @@ import 'package:http/http.dart' as http;
                                  Navigator.push(
                                      context,
                                      new MaterialPageRoute(
-                                         builder: (context) => Offres()));
+                                         builder: (context) => MainOffres()));
                                },
                                child: Container(
                                  decoration: BoxDecoration(

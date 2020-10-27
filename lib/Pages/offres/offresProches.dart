@@ -10,8 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:memory/Pages/offres/offreDetails.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
-
-class Offres extends StatelessWidget {
+class OffresProches extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +26,7 @@ class Offres extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              title: const Text("Offres"),
+              title: const Text("Offres prés de chez moi"),
               bottom: TabBar(
                 isScrollable: true,
                 tabs: choises.map<Widget>((Choise choise){

@@ -27,7 +27,7 @@ class Offres extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              title: const Text("Offres"),
+              title: const Text("Toutes les offres"),
               bottom: TabBar(
                 isScrollable: true,
                 tabs: choises.map<Widget>((Choise choise){

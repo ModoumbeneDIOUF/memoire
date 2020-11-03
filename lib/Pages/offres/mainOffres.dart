@@ -52,8 +52,8 @@ class _MainOffresState extends State<MainOffres> {
         animationCurve: Curves.easeOut,
         animationDuration: Duration(milliseconds: 600),
         items: <Widget>[
-          Icon(Icons.android,size: 20,color: Colors.black,),
-          Icon(Icons.android,size: 20,color: Colors.black,),
+          Icon(Icons.border_all,size: 20,color: Colors.black,),
+          Icon(Icons.home,size: 20,color: Colors.black,),
         ],
         onTap: (int tapedindex){
           print("Currrent index is $tapedindex");

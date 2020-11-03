@@ -9,6 +9,7 @@ import 'package:memory/Api/url.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:memory/Pages/offres/offreDetails.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OffresProches extends StatelessWidget {
   @override
@@ -78,8 +79,10 @@ class ChoisePage extends StatefulWidget{
 class _ChoisePageState extends State<ChoisePage> {
 
   Future<List<ModelOffre>>  _getOffre() async{
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    String num = localStorage.getString("numVolontaire");
     //Text(widget.choise.titre,style: textStyle,);
-    String _url = Url().url+"nourritureList/"+widget.choise.titre;
+    String _url = Url().url+"nourritureListProch/"+widget.choise.titre+"/"+num;
 
     var data = await http.get(_url);
 

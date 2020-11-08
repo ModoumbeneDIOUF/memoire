@@ -4,6 +4,7 @@ import 'package:memory/Login/loginScreen.dart';
 import 'package:memory/Pages/offres/offfes.dart';
 
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -110,6 +111,8 @@ class _DemandeZakatState extends State<DemandeZakat> {
                               child: TextFormField(
                                 controller: somme,
                                 keyboardType: TextInputType.number,
+                                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+
                                 onChanged: ((String s){
                                   setState(() {
                                     _somme = s;
@@ -128,7 +131,11 @@ class _DemandeZakatState extends State<DemandeZakat> {
                                 ),
                                 textAlign: TextAlign.center,
                                 validator: (value) {
-                                  if (value.isEmpty) {
+                                  final n = num.tryParse(value);
+                                  if(n == null) {
+                                    return 'Veillez saisir des chiffres';
+                                  }
+                                  else if (value.isEmpty) {
                                     return 'Champ obligatoire';
                                   }
                                   else if(value.length < 4){
@@ -147,6 +154,7 @@ class _DemandeZakatState extends State<DemandeZakat> {
 
                                 controller: cniBeneficiare,
                                 keyboardType: TextInputType.number,
+                                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                                 onChanged: ((String s){
                                   setState(() {
                                     _cniBeneficiare = s;
@@ -165,7 +173,11 @@ class _DemandeZakatState extends State<DemandeZakat> {
                                 ),
                                 textAlign: TextAlign.center,
                                 validator: (value) {
-                                  if (value.isEmpty) {
+                                  final n = num.tryParse(value);
+                                  if(n == null) {
+                                    return 'Veillez saisir des chiffres';
+                                  }
+                                  else if (value.isEmpty) {
                                     return 'Champ obligatoire';
                                   }
                                   else if(value.substring(0,1) != "1" && value.substring(0,1) != "2"){

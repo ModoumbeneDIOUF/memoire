@@ -298,6 +298,8 @@ class _NewOffreState extends State<NewOffre> {
                       TextFormField(
                         controller: numero,
                         keyboardType: TextInputType.number,
+                        inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+
                         onChanged: ((String numero) {
                           setState(() {
                             _numero = numero;
@@ -316,7 +318,12 @@ class _NewOffreState extends State<NewOffre> {
                         ),
                         textAlign: TextAlign.center,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          final n = num.tryParse(value);
+                          if(n == null) {
+                            return 'Veillez saisir des chiffres';
+                          }
+
+                          else if (value.isEmpty) {
                             return 'Champ obligatoire';
                           }
                           return null;
@@ -344,7 +351,11 @@ class _NewOffreState extends State<NewOffre> {
                         ),
                         textAlign: TextAlign.center,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          final n = num.tryParse(value);
+                          if(n == null) {
+                            return 'Veillez saisir des chiffres';
+                          }
+                          else if (value.isEmpty) {
                             return 'Champ obligatoire';
                           }
                           return null;

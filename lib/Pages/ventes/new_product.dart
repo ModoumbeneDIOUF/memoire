@@ -250,6 +250,8 @@ class _NewProductState extends State<NewProduct> {
                             TextFormField(
                               controller: prix,
                               keyboardType: TextInputType.number,
+                              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+
                               onChanged: ((String p) {
                                 setState(() {
                                   _prix = p;
@@ -257,7 +259,7 @@ class _NewProductState extends State<NewProduct> {
                                 });
                               }),
                               decoration: InputDecoration(
-                                labelText: "Prix",
+                                labelText: "Prix unitaire",
                                 labelStyle: TextStyle(
                                   color: Colors.black87,
                                 ),
@@ -268,7 +270,11 @@ class _NewProductState extends State<NewProduct> {
                               ),
                               textAlign: TextAlign.center,
                               validator: (value) {
-                                if (value.isEmpty) {
+                                final n = num.tryParse(value);
+                                if(n == null) {
+                                  return 'Veillez saisir des chiffres';
+                                }
+                                else if (value.isEmpty) {
                                   return 'Champ obligatoire';
                                 }
                                 return null;
@@ -347,6 +353,8 @@ class _NewProductState extends State<NewProduct> {
                             TextFormField(
                               controller: numero,
                               keyboardType: TextInputType.number,
+                              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+
                               onChanged: ((String a) {
                                 setState(() {
                                   _numero = a;
@@ -365,8 +373,19 @@ class _NewProductState extends State<NewProduct> {
                               ),
                               textAlign: TextAlign.center,
                               validator: (value) {
-                                if (value.isEmpty) {
+                                final n = num.tryParse(value);
+                                if(n == null) {
+                                  return 'Veillez saisir des chiffres';
+                                }
+
+                                else if (value.isEmpty) {
                                   return 'Champ obligatoire';
+                                }
+                                else if((value.toString().substring(0,2) != "77") && (value.toString().substring(0,2) != "70") && (value.toString().substring(0,2) != "78")&& (value.toString().substring(0,2) != "76")&& (value.toString().substring(0,2) != "33")){
+                                  return 'Fromat du numéro incorecte ';
+                                }
+                                else if ((value.length < 9) || (value.length > 9)){
+                                  return 'Le numéro doit avoir 9 chiffres ';
                                 }
                                 return null;
                               },

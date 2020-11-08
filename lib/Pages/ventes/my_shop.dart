@@ -177,6 +177,8 @@ class _MyshopState extends State<Myshop> {
                                                     child: TextFormField(
                                                         controller: newPrix,
                                                         keyboardType: TextInputType.number,
+                                                        inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+
                                                         onChanged: ((String newPrix){
                                                         setState(() {
                                                           _newPrix = newPrix;
@@ -194,7 +196,11 @@ class _MyshopState extends State<Myshop> {
                                                         ),
                                                         textAlign: TextAlign.center,
                                                         validator: (value) {
-                                                        if (value.isEmpty) {
+                                                                  final n = num.tryParse(value);
+                                                                  if(n == null) {
+                                                                  return 'Veillez saisir des chiffres';
+                                                                  }
+                                                                  else if (value.isEmpty) {
                                                         return 'Champ obligatoire';
                                                         }
                                                         return null;

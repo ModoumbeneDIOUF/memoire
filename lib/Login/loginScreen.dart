@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:memory/localNotification.dart';
 import 'package:memory/receive_sms.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,6 +110,8 @@ class _LogInState extends State<LogIn> {
                                             margin: EdgeInsets.only(top: 7),
                                             child: TextFormField(
                                               keyboardType: TextInputType.number,
+                                              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+
                                               controller: numeroController,
 
                                               decoration: InputDecoration(
@@ -117,7 +120,12 @@ class _LogInState extends State<LogIn> {
                                                 hintText: '771234567'
                                               ),
                                               validator: (value) {
-                                                if (value.isEmpty) {
+
+                                                final n = num.tryParse(value);
+                                                if(n == null) {
+                                                  return 'Veillez saisir des chiffres';
+                                                }
+                                                else if (value.isEmpty) {
                                                   return 'Champ obligatoire';
                                                 }
                                                 else if((value.toString().substring(0,2) != "77") && (value.toString().substring(0,2) != "70") && (value.toString().substring(0,2) != "78")&& (value.toString().substring(0,2) != "76")&& (value.toString().substring(0,2) != "33")){

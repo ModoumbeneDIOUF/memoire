@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memory/Api/url.dart';
-
+import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -174,6 +174,8 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
                                            child: TextFormField(
                                              controller: somme,
                                              keyboardType: TextInputType.number,
+                                             inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+
                                              onChanged: ((String s){
                                                setState(() {
                                                  _somme = s;
@@ -192,7 +194,11 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
                                              ),
                                              textAlign: TextAlign.center,
                                              validator: (value) {
-                                               if (value.isEmpty) {
+                                               final n = num.tryParse(value);
+                                               if(n == null) {
+                                                 return 'Veillez saisir des chiffres';
+                                               }
+                                               else if (value.isEmpty) {
                                                  return 'Champ obligatoire';
                                                }
                                                else if(value.length < 4){

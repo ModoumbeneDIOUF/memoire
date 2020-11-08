@@ -79,7 +79,7 @@ class _EspaceVolontaireState extends State<EspaceVolontaire> {
         title: const Text("Espace volontaire"),
 
       ),
-      backgroundColor: Colors.grey,
+        backgroundColor: Colors.blue[100],
       body: RefreshIndicator(
           child: Expanded(
             child: Container(

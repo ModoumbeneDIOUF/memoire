@@ -59,7 +59,7 @@ class _DemandeZakatState extends State<DemandeZakat> {
         title: Text("Demander de la zakat"),
         backgroundColor: Colors.blueAccent,
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.blue[100],
       ////////////// Drawer   //////////////
             //////////// le contenu ///////////////
       body: SafeArea(

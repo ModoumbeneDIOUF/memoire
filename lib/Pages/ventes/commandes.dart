@@ -49,7 +49,7 @@ class _CommandesState extends State<Commandes> {
     pr.style(
       message: 'Veillez patienter...',
       borderRadius: 10.0,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue[100],
       progressWidget: CircularProgressIndicator(),
       elevation: 10.0,
       insetAnimCurve: Curves.easeInOut,

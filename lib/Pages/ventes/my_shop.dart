@@ -89,7 +89,7 @@ class _MyshopState extends State<Myshop> {
         title: Text('Ma boutique'),
 
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.blue[100],
       body: RefreshIndicator(
           child: Column(
                     children: <Widget>[

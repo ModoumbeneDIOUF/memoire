@@ -76,7 +76,7 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
               ),
             ),
             SizedBox(height: 5,),
-            Text("Donnez la somme à envoyer puis émetre l'appel",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text("Donnez la somme à envoyer puis émettre l'appel",style: TextStyle(color: Colors.black54,fontWeight: FontWeight.bold),),
             SizedBox(height: 5,),
           ],
         )
@@ -122,7 +122,7 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
         ),
         title: Text('Donner de la zakat'),
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.blue[100],
       body: ListView(
          children: <Widget>[
             image_Carousel,
@@ -181,7 +181,7 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
                                                });
                                              }),
                                              decoration: InputDecoration(
-                                               labelText: "Somme à envoyer",
+                                               labelText: "Montant à envoyer",
                                                labelStyle: TextStyle(
                                                  color: Colors.black87,
                                                ),

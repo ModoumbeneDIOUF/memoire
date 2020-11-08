@@ -136,7 +136,7 @@ class _AcceuilVendeurState extends State<AcceuilVendeur> {
         elevation: 2.0,
         title: Text("Vendeur"),
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.blue[100],
       drawer: new Drawer(
         child: ListView(
           children: <Widget>[

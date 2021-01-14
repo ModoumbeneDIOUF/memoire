@@ -121,7 +121,7 @@ class _HomeState extends State<Home> {
                             ),
                             SizedBox(height: 15.0),
                             Text(
-                              'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+                              'Soutenir, partager et aider d’autres personnes font partis des plus grandes récompenses de la vie. ',
                               style: TextStyle( color: Colors.blueAccent, fontSize: 18.0, height: 1.2,),
                             ),
                           ],
@@ -145,7 +145,7 @@ class _HomeState extends State<Home> {
 
                            // SizedBox(height: 15.0),
                             Text(
-                              'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+                              'Soutenir, partager et aider d’autres personnes font partis des plus grandes récompenses de la vie. ',
                               style: TextStyle( color: Colors.blueAccent, fontSize: 18.0, height: 1.2,),
                             ),
                           ],
@@ -168,7 +168,7 @@ class _HomeState extends State<Home> {
 
                             SizedBox(height: 15.0),
                             Text(
-                              'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+                              'Soutenir, partager et aider d’autres personnes font partis des plus grandes récompenses de la vie.',
                               style: TextStyle( color: Colors.blueAccent, fontSize: 18.0, height: 1.2,),
                             ),
                           ],

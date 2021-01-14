@@ -167,8 +167,9 @@ class _MyCartState extends State<MyCart> {
      }).then((res) {
        var body = json.decode(res.body);
        if(body['message'] == "ok"){
-          _hundleRefresh();
          pr.hide();
+          _hundleRefresh();
+
 
          Fluttertoast.showToast(
            msg: "Commande validée",

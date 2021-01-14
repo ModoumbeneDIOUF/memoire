@@ -194,7 +194,7 @@ class _EspaceVolontaireState extends State<EspaceVolontaire> {
                                                               });
                                                             }),
                                                             decoration: InputDecoration(
-                                                              labelText: "Nombre de personnes aidé",
+                                                              labelText: "Nombre de personnes aidées",
                                                               labelStyle: TextStyle(
                                                                 color: Colors.black87,
                                                               ),

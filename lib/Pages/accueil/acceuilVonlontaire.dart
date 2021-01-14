@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io';
 
 import 'package:memory/Api/url.dart';
@@ -7,10 +8,9 @@ import 'package:memory/Pages/offres/mainOffres.dart';
 import 'package:memory/Pages/zakkat/demande_zakat.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:memory/Pages/offres/offfes.dart';
 import 'package:memory/Pages/offres/dashboard.dart';
-import 'package:memory/Pages/ventes/products.dart';
 import 'package:memory/Pages/ventes/produits.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -21,6 +21,7 @@ import 'package:http/http.dart' as http;
 
  class _AcceuilVolontaireState extends State<AcceuilVolontaire> {
    String num;
+   ProgressDialog pr;
    Future<List<UserConnected>>  _getUser() async{
 
     // var getlocalStorage = asyncFunc();
@@ -46,6 +47,22 @@ import 'package:http/http.dart' as http;
 
    @override
    Widget build(BuildContext context) {
+     //============================================= loading dialoge
+
+     pr = new ProgressDialog(context, type: ProgressDialogType.Normal);
+      pr.style(
+        message: 'Veillez patienter...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        progressTextStyle: TextStyle(
+            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600),
+
+      );
      asyncFunc();
      return Scaffold(
        appBar: new AppBar(
@@ -157,15 +174,65 @@ import 'package:http/http.dart' as http;
               ),
               Divider(),
               ListTile(
+                leading: Icon(Icons.edit,color: Colors.lightGreen),
+                title: Text("Changer de profil"),
+                onTap: (){
+                  showDialog(
+                      context: context,
+                      builder: (_)=> AlertDialog(
+                        content: Text("Voulez-vous changer de profil ?"),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: (){
+                              Navigator.pop(context);
+                            },
+                            child: Text("Non"),
+                          ),
+                          FlatButton(
+                            onPressed: (){
+                             changer_de_profil();
+                            }
+                            ,
+                            child: Text("Oui"),
+                          )
+                        ],
+                      )
+                  );
+
+                },
+              ),
+              ListTile(
                 leading: Icon(Icons.power_settings_new,color: Colors.red),
                 title: Text("Se deconecter"),
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    new MaterialPageRoute(builder: (context)=>LogIn())
-                      );
+
+                  showDialog(
+                      context: context,
+                      builder: (_)=> AlertDialog(
+                        content: Text("Voulez-vous vous doconnecter ?"),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: (){
+                              Navigator.pop(context);
+                            },
+                            child: Text("Non"),
+                          ),
+                          FlatButton(
+                            onPressed: (){
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) => LogIn()));
+                            }
+                            ,
+                            child: Text("Oui"),
+                          )
+                        ],
+                      )
+                  );
                 },
               ),
+
             ],
           ),
         ),
@@ -370,6 +437,29 @@ import 'package:http/http.dart' as http;
 
      );
    }
+   changer_de_profil() async{
+     pr.show();
+     SharedPreferences localStorage = await SharedPreferences.getInstance();
+     String num = localStorage.getString("numVolontaire");
+     String _url = Url().url+"updateUserProfil/"+num;
+     var updateUserProfil = await http.get(_url);
+     var body = json.decode(updateUserProfil.body);
+     if(body['message'] == "succefully"){
+        pr.hide();
+
+        Fluttertoast.showToast(
+          msg: "Votre profil a été modifié vous êtes maintenant un donneur",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+        );
+
+        Navigator.push(
+            context,
+            new MaterialPageRoute(
+                builder: (context) => LogIn()));
+     }
+
+   }
    Future<bool> onWillPop () async{
      showDialog(
          context: context,
@@ -404,6 +494,7 @@ import 'package:http/http.dart' as http;
 
   return num;
 }
+
 class UserConnected{
   final String prenom;
   final String nom;

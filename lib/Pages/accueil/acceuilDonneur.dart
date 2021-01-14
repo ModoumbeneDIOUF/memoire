@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,11 +8,12 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:memory/Pages/offres/nouvelle_offre.dart';
 import 'package:memory/Pages/zakkat/nouvel_zakkat.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:memory/notificationPlugin.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:memory/Api/url.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+
 
 
 class AcceuilDonneur extends StatefulWidget {
@@ -23,7 +25,7 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
   String _somme;
   var somme = TextEditingController();
   String num;
-
+  ProgressDialog pr;
   Future<List<UserConnected>>  _getUser() async{
 
     // var getlocalStorage = asyncFunc();
@@ -130,6 +132,23 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
   // eeeeeeeeeeeeeeeeeeeeeeeeeeeeeennnnnnnnnnnnnnnndddddddddddd
   @override
   Widget build(BuildContext context) {
+
+    //============================================= loading dialoge
+
+    pr = new ProgressDialog(context, type: ProgressDialogType.Normal);
+    pr.style(
+      message: 'Veillez patienter...',
+      borderRadius: 10.0,
+      backgroundColor: Colors.white,
+      progressWidget: CircularProgressIndicator(),
+      elevation: 10.0,
+      insetAnimCurve: Curves.easeInOut,
+      progressTextStyle: TextStyle(
+          color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+      messageTextStyle: TextStyle(
+          color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600),
+
+    );
     Widget image_Carousel = new Container(
       height: 200.0,
       child: new Carousel(
@@ -298,7 +317,7 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
             InkWell(
               child: ListTile(
                 leading: Icon(Icons.attach_money,color: Colors.blueAccent),
-                title: Text("Donner de la zakkat"),
+                title: Text("Donner de la zakat"),
                 onTap: (){
                   Navigator.push(context, new MaterialPageRoute(
                       builder:(context)=>NouvelleZakkat()));
@@ -306,18 +325,66 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
               ),
             ),
            Divider(),
-           InkWell(
-             child: ListTile(
-               leading: Icon(Icons.power_settings_new,color: Colors.red),
-               title: Text("Se deconecter"),
-               onTap: (){
-                 Navigator.push(
-                     context,
-                     new MaterialPageRoute(builder: (context)=>LogIn())
-                 );
-               },
-             ),
-           ),
+            ListTile(
+              leading: Icon(Icons.edit,color: Colors.lightGreen),
+              title: Text("Changer de profil"),
+              onTap: (){
+                showDialog(
+                    context: context,
+                    builder: (_)=> AlertDialog(
+                      content: Text("Voulez-vous changer de profil ?"),
+                      actions: <Widget>[
+                        FlatButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                          child: Text("Non"),
+                        ),
+                        FlatButton(
+                          onPressed: (){
+                            changer_de_profil();
+                          }
+                          ,
+                          child: Text("Oui"),
+                        )
+                      ],
+                    )
+                );
+
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.power_settings_new,color: Colors.red),
+              title: Text("Se deconecter"),
+              onTap: (){
+
+                showDialog(
+                    context: context,
+                    builder: (_)=> AlertDialog(
+                      content: Text("Voulez-vous vous doconnecter ?"),
+                      actions: <Widget>[
+                        FlatButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                          child: Text("Non"),
+                        ),
+                        FlatButton(
+                          onPressed: (){
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => LogIn()));
+                          }
+                          ,
+                          child: Text("Oui"),
+                        )
+                      ],
+                    )
+                );
+              },
+            ),
+
           ],
         ),
       ),
@@ -335,7 +402,7 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
                       image: DecorationImage(
                         //image: AssetImage("assets/carouselDonneur/2.jpg"),
                         image: AssetImage("assets/welcom/logo2.jpg"),
-                        fit: BoxFit.fitWidth,
+                        fit: BoxFit.cover,
 
                       )
                   ),
@@ -445,6 +512,30 @@ class _AcceuilDonneurState extends State<AcceuilDonneur> {
       
     );
   }
+  changer_de_profil() async{
+    pr.show();
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    String num = localStorage.getString("numVolontaire");
+    String _url = Url().url+"updateUserProfil/"+num;
+    var updateUserProfil = await http.get(_url);
+    var body = json.decode(updateUserProfil.body);
+    if(body['message'] == "succefully"){
+      pr.hide();
+
+      Fluttertoast.showToast(
+        msg: "Votre profil a été modifié vous êtes maintenant un Volontaire",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+      );
+
+      Navigator.push(
+          context,
+          new MaterialPageRoute(
+              builder: (context) => LogIn()));
+    }
+
+  }
+
   void logout() async{
 
 

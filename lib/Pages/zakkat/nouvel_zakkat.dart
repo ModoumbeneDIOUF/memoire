@@ -209,32 +209,68 @@ class _NouvelleZakkatState extends State<NouvelleZakkat> {
                                            ),
 
                                          ),
-                                         Padding(
-                                           padding: EdgeInsets.only(top: 28),
-                                           child: Column(
-                                             children: <Widget>[
-                                               _myRadioButton(
-                                                 title: "Orange money",
-                                                 value: 0,
-                                                 onChanged: (newValue) => setState(() => _groupValue = newValue),
-                                                 active: Colors.deepOrange
-                                               ),
-                                               _myRadioButton(
-                                                 title: "Free money",
-                                                 value: 1,
-                                                 onChanged: (newValue) => setState(() => _groupValue = newValue),
-                                                 active: Colors.blue
+                                        //le padding
 
-                                               ),
-                                             ],
-                                           ),
+                                          Container(margin: EdgeInsets.only(top: 25),),
+                                          Row(
+                                            children: <Widget>[
+                                              Expanded(child: _myRadioButton(
+                                                  title: "Orange money",
+                                                  value: 0,
+                                                  onChanged: (newValue) => setState(() => _groupValue = newValue),
+                                                  active: Colors.deepOrange
+                                              ),),
+                                              Expanded(child: _myRadioButton(
+                                                  title: "Free money",
+                                                  value: 1,
+                                                  onChanged: (newValue) => setState(() => _groupValue = newValue),
+                                                  active: Colors.blue
+
+                                              ),),
+                                            ],
+                                          ),
+                                         Row(
+                                           children: <Widget>[
+                                             Expanded(child: _myRadioButton(
+                                                 title: "E-Money",
+                                                 value: 2,
+                                                 onChanged: (newValue) => setState(() => _groupValue = newValue),
+                                                 active: Colors.purple
+
+                                             ),),
+                                             Expanded(child: _myRadioButton(
+                                                 title: "Wave",
+                                                 value: 3,
+                                                 onChanged: (newValue) => setState(() => _groupValue = newValue),
+                                                 active: Colors.black
+
+                                             ),),
+                                           ],
                                          ),
-                                         //===========================Button=============================
+                                         Row(
+                                           children: <Widget>[
+                                             Expanded(child: _myRadioButton(
+                                                 title: "Wari",
+                                                 value: 4,
+                                                 onChanged: (newValue) => setState(() => _groupValue = newValue),
+                                                 active: Colors.green
+
+                                             ),),
+                                             Expanded(child: _myRadioButton(
+                                                 title: "Ecobank",
+                                                 value: 5,
+                                                 onChanged: (newValue) => setState(() => _groupValue = newValue),
+                                                 active: Colors.indigo[900]
+
+                                             ),),
+                                           ],
+                                         ),
+                                                                 //===========================Button=============================
 
                                          Center(
                                            child: Container(
                                              width: 300,
-                                             margin: EdgeInsets.only(top: 50),
+                                             margin: EdgeInsets.only(top: 20),
                                              alignment: Alignment.center,
                                              decoration: BoxDecoration(
                                                  borderRadius: BorderRadius.circular(25),
